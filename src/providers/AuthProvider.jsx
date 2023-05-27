@@ -23,14 +23,21 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [error,setError] = useState('')
 
-  const createUser = (email, password) => {
+  const createUser = (email, password,name,photoURL) => {
     setLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
         .then((result) => {
           const user = result.user;
           setUser(user)
+            updateProfile(auth.currentUser, {
+              displayName: name,
+              photoURL: photoURL
+            }).then(() => { 
+            }).catch((error) => {
+            });
+
           toast.success('Successfully Login Complete');
-              setLoading(false)
+          setLoading(false)
       })
       .catch((error) => {
           setLoading(true)
@@ -87,20 +94,7 @@ const AuthProvider = ({ children }) => {
     signOut(auth)
   }
 
-  const updateUserProfile = (name, photo) => {
-    updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    })
-      .then((result) => {
-        const user = result.user;
-        setUser(user)
-    })
-    .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(errorMessage)
-    });
-  }
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -122,7 +116,6 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     resetPassword,
     logOut,
-    updateUserProfile,
   }
 
   return (
