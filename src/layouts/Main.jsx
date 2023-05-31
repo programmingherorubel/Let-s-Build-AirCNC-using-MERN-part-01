@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Home from "../components/Pages/Home"
 import Navbar from "../components/Share/Navbar"
+import Footer from "../components/Footer/Footer"
 
 const Main = () => {
   return (
@@ -9,6 +10,7 @@ const Main = () => {
         <div className="pt-24 pb-16">
         <Outlet/>
         </div>
+        <Footer></Footer>
         
     </div>
   )
