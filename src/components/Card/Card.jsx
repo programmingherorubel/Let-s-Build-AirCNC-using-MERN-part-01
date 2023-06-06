@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import HeartButton from '../Button/HeartButton'
 
 const Card = ({room}) => {
-  const {location,image,dateRange,price,category} = room || {}
+  const info = useParams()
+  
+  const {location,image,dateRange,price,category,_id} = room || {}
  
   return (
-    <Link to={`/room/${1}`} className='col-span-1 cursor-pointer group'>
+    <Link to={`/room/${_id}`} className='col-span-1 cursor-pointer group'>
       <div className='flex flex-col gap-2 w-full'>
         <div
           className='

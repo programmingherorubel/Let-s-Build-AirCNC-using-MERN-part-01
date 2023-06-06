@@ -19,7 +19,7 @@ const SignUp = () => {
     const email = event.target.email.value
     const password = event.target.password.value 
     const name = event.target.name.value
-    console.log(name)
+   
 
     // image upllad 
     const image = event.target.image.files[0]
@@ -38,7 +38,7 @@ const SignUp = () => {
     })
   } 
 
-  console.log(user)
+ 
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>

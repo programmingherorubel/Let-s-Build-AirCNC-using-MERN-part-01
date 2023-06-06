@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import { toast } from 'react-hot-toast'
+import { saveUser } from '../components/api/Auth'
 
 export const AuthContext = createContext(null)
 
@@ -29,6 +30,10 @@ const AuthProvider = ({ children }) => {
         .then((result) => {
           const user = result.user;
           setUser(user)
+          // save data to database 
+          console.log(user)
+          
+          saveUser(user)
             updateProfile(auth.currentUser, {
               displayName: name,
               photoURL: photoURL
@@ -71,7 +76,9 @@ const AuthProvider = ({ children }) => {
     signInWithPopup(auth, googleProvider)
     .then((result) => {
       const user = result.user;
+      // save data to database 
       setUser(user)
+      saveUser(user)
       toast.success('Successfully Login Complete');
           setLoading(false)
   })
@@ -124,3 +131,8 @@ const AuthProvider = ({ children }) => {
 }
 
 export default AuthProvider
+
+
+
+
+

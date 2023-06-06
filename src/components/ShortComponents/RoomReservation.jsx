@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
@@ -19,12 +19,13 @@ const RoomReservation = () => {
                 <div className='font-light text-neutral-600'>Night</div>
             </div>
             <hr />
-            <div>
-            <DateRangePicker
-                editableDateInputs={true}
-                onChange={item => setState([item.selection])}
-                moveRangeOnFirstSelection={false}
-                ranges={state}
+            <div className='flex justify-center '>
+            <DateRange
+            rangeColors={['#262626']}
+            date={new Date()}
+            direction='vertical'
+            showDateDisplay={false}
+            minDate={new Date()}
             />
             </div>
         </div>

@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import NoData from '../extra/NoData';
 import Heading from '../Heading/Heading';
+import { addRoomms } from '../api/addRooms';
 
 const Rooms = () => {
     const {loading} = useContext(AuthContext)
@@ -17,8 +18,7 @@ const Rooms = () => {
   
 
     useEffect(()=>{
-        fetch('rooms.json')
-        .then(res => res.json())
+        addRoomms()
         .then(data => {
             if(category){
                 const filterData = data.filter(ctrgry => ctrgry.category === category)

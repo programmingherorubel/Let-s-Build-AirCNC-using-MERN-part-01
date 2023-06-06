@@ -3,17 +3,31 @@ import { useCallback, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../providers/AuthProvider'
 import Avatar from '../ShortComponents/Avatar'
+import HostModal from '../Modal/HostRequestModal'
+import {becomeHost} from '../api/Auth.js'
 
 const MenuDropdown = () => {
   const { user, logOut } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
+  const [modal,setModal] = useState(false)
   const toggleOpen = useCallback(() => {
     setIsOpen(value => !value)
   }, [])
+
+  const modalHandeler = email =>{
+    becomeHost(email).then(data =>{
+      console.log(data)
+      closeModal()
+    })
+  }
+
+  const closeModal = ()=>{
+    setModal(false)
+  }
   return (
     <div className='relative'>
       <div className='flex flex-row items-center gap-3'>
-        <div className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer'>
+        <div onClick={()=>setModal(true)} className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer'>
           AirCNC your home
         </div>
         <div
@@ -36,12 +50,20 @@ const MenuDropdown = () => {
               Home
             </Link>
             {user ? (
-              <div
+              <>
+                <div
                 onClick={logOut}
                 className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
               >
                 Logout
               </div>
+
+                <div
+                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+              >
+                <Link to='/dashbord'>Dashbord</Link>
+              </div>
+              </>
             ) : (
               <>
                 <Link
@@ -61,6 +83,7 @@ const MenuDropdown = () => {
           </div>
         </div>
       )}
+      <HostModal closeModal={closeModal} email={user?.email} modalHandler={modalHandeler} isOpen={modal} />
     </div>
   )
 }
