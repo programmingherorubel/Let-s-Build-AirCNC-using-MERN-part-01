@@ -1,10 +1,11 @@
 import React from 'react';
-import Container from '../extra/Container'
+import MenuDropdown from '../MenuDropdown/MenuDropdown';
+import Search from '../Search/Search';
 import Logo from '../ShortComponents/Logo';
-import Search from '../Search/Search'
-import MenuDropdown from '../MenuDropdown/MenuDropdown'
+import Container from '../extra/Container';
 
 const Navbar = () => {
+    
     return (
         <div className='fixed w-full bg-white shadow-sm z-10'>
             <div className='py-4 border-b-[1px]'>

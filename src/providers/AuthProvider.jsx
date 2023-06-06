@@ -12,7 +12,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import { toast } from 'react-hot-toast'
-import { saveUser } from '../components/api/Auth'
+import { getRole, saveUser } from '../components/api/Auth'
 
 export const AuthContext = createContext(null)
 
@@ -23,6 +23,15 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error,setError] = useState('')
+  const [role,setRole] = useState(null)
+
+
+  useEffect(()=>{
+    if(user){
+      getRole(user?.email).then(data => setRole(data))
+    }
+    
+  },[user])
 
   const createUser = (email, password,name,photoURL) => {
     setLoading(true)
@@ -101,7 +110,7 @@ const AuthProvider = ({ children }) => {
     signOut(auth)
   }
 
-  
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -123,6 +132,8 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     resetPassword,
     logOut,
+    role,
+    setRole
   }
 
   return (
